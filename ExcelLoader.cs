@@ -42,11 +42,14 @@ namespace excel2json {
                 // data as column names.
                 UseHeaderRow = true,
 
-                // Gets or sets a callback to determine whether to include the 
-                // current row in the DataTable.
-                //FilterRow = (rowReader) => {
-                //    return rowReader.Depth > headerRow - 1;
-                //},
+                ReadHeaderRow = (reader) =>
+                {
+                    var skipRow = headerRow - 1;
+                    for (int i = 0; i < skipRow; i++ )
+                    {
+                        reader.Read();
+                    }
+                }
             };
 
             return new ExcelDataSetConfiguration() {
